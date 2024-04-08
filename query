@@ -14,13 +14,13 @@ CREATE TABLE  status (
 -- Додавання унікальних значень для статусів
 INSERT INTO status (name) VALUES ('new'), ('in progress'), ('completed');
 
--- Створення таблиці завдань (tasks)
-CREATE table  tasks (
+-- Створення таблиці завдань (tasks) з каскадним видаленням
+CREATE table  if not exists tasks (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(100),
+    title VARCHAR(100), 
     description TEXT,
-    status_id INTEGER REFERENCES status(id),
-    user_id INTEGER REFERENCES users(id)
+    status_id INTEGER REFERENCES status(id) on delete cascade,
+    user_id INTEGER REFERENCES users(id) on delete cascade
 );
 
 
